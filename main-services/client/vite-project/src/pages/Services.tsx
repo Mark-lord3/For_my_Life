@@ -3,7 +3,7 @@
 import React ,{useEffect,useState} from 'react'
 
 import top_button from '../assets/images/svg-home/top-button.svg';
-
+import top_img from '../assets/images/images-service/1183723.png'
 
 const Services: React.FC = () => {
     
@@ -35,15 +35,27 @@ const Services: React.FC = () => {
     return (
       <main>
         {/* <div className="trapezoid"></div> */}
-        <div className="triangle-home">
-            <div className='triangle-home-section'>
+        <div className="top-service">
+          <div className='top-service-block'>
 
-                <div className='triangle-home-title'>
+          
+            <div className='top-service-section'>
+
+                <div className='top-service-title'>
                     My new web
+                    https://mailchimp.com/whats-new/ -тут пример 
+
                 </div>
-                <div className='triangle-home-text'>
+                <div className='top-service-text'>
                 <p>Some text Some text Some text Some text Some text Some text </p>
                 </div>
+            </div>
+            <div className='top-service-image'>
+              <img src={top_img}></img>
+            </div>
+          </div>
+            <div className='top-service-button'>
+              <button> Click </button>
             </div>
         </div>
         

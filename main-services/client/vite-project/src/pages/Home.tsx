@@ -19,6 +19,7 @@ import grapql from '../assets/images/images-home/bottom-images/graphql.svg';
 import hosting from '../assets/images/images-home/bottom-images/hosting.png';
 import adobe from '../assets/images/images-home/bottom-images/adobe.png';
 import { IonIcon } from "@ionic/react";
+import axios from 'axios';
 // import bgimagefigure1 from '../assets/images/images-home/photo-1454117096348-e4abbeba002c.jpeg'
 // import bgimagefigure2 from '../assets/images/images-home/37392471.jpg';
 
@@ -48,7 +49,17 @@ const Home: React.FC = () => {
           behavior: 'smooth', // This makes the scrolling smooth
         });
       };
-   
+      const [videoUrl, setVideoUrl] = useState('');
+
+      useEffect(() => {
+        axios.get('http://localhost:3002/api/video')
+          .then(response => {
+            setVideoUrl(response.data);
+          })
+          .catch(error => {
+            console.error('Error fetching video URL:', error);
+          });
+      }, []);
     useEffect(() => {
       const checkScroll = () => {
           if (!showScrollButton && window.scrollY > 400) {
@@ -109,6 +120,12 @@ const Home: React.FC = () => {
             
             
         </div>
+        {videoUrl && (
+        <video controls>
+          <source src={videoUrl} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      )}
         {/* <div className='figure-bg'>
         <img className='figure-bg' src={bgimagefigure2} />
         </div> */}

@@ -830,7 +830,41 @@ video{
     margin: 10px;
     background-color: #ccc;
   }
+.content-about {
+  width: 100%;
+  height: auto;
+  margin: auto;
+  max-width: 1200px;
+  padding: 40px 0 40px 0;
+}
+
+.hero-back {
+  width: 100%;
+  height: calc(100vh);
+  background: url(../images/images-about/hero1.jpg) no-repeat 50% 50%;
+  background-size: cover;
+  position: relative;
+}
+.hero-back2 {
+  width: 100%;
+  height: calc(100vh);
+  background: url(../images/images-about/hero1.jpg) no-repeat 50% 50%;
+  background-size: cover;
+  position: relative;
+}
+.hero-back img {
+  width: 100%;
+  position: absolute;
+  height: 300px;
+ 
+  object-fit: cover;
+ 
+  bottom: 0px;
+  bottom: 0;
+  left: 0;
+  right: 0;
   
+}
   /* Empty background section */
   .empty-bg {
     /* height: 1000px; Adjust height as needed */
@@ -938,4 +972,41 @@ video{
   }
   
   /* Additional styles can be added for responsiveness and other design elements */
-  
+  /* Serivce */
+.top-service{
+  margin-top: 50px;
+  width: 100%;
+  height: 499px;
+  background-position: center;
+  background-size: cover;
+  background-image: url('../images/svg-about/top-svg.svg');
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.top-service-block{
+  display: flex;
+  width: 900px;
+  justify-content: space-between;
+}
+.top-service-section{
+  width: 350px;
+  height: 250px;
+  border-radius: 30px;
+  background-color: white;
+  padding: 20px;
+}
+.top-service-image img{
+  height: 300px;
+}
+.top-service-button button{
+  width: 150px;
+  height: 40px;
+  border-radius: 30px;
+  transition: all .3s ease-out;
+}
+.top-service-button button:hover{
+  transform: scale(1.1);
+  cursor: pointer;
+}
