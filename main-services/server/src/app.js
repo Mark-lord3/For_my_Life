@@ -118,6 +118,20 @@ app.post("/api/register", (req, res) => {
     return res.status(201).json({ message: "User registered successfully" });
   });
 });
+app.get("/api/services", (req, res) => {
+  
+});
+
+app.get("/api/services?id=", (req, res) => {
+  
+});
+app.get("/api/requests", (req, res) => {
+  
+});
+
+app.get("/api/request?id=", (req, res) => {
+  
+});
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
