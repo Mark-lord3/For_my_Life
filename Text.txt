@@ -1,0 +1,4 @@
+Db=Mark12641! -Linux
+Db=  -Mac
+Dump=mysqldump -u root -p webService > backup.sql  
+   
