@@ -1,6 +1,7 @@
 
 
 import React ,{useEffect,useState} from 'react'
+import { Link } from 'react-router-dom';
 import videoBG1 from '../../../../server/src/assets/videos/production_id_4709297 (2160p).mp4'
 import videoBG2 from '../../../../server/src/assets/videos/pexels-cottonbro-5473806 (2160p).mp4'
 import videoBG3 from '../../../../server/src/assets/videos/pexels-mikhail-nilov-6963744 (Original).mp4'
@@ -39,8 +40,10 @@ import slide_image_4 from '../assets/images/img_4.jpg';
 import slide_image_5 from '../assets/images/img_5.jpg';
 import slide_image_6 from '../assets/images/img_6.jpg';
 import slide_image_7 from '../assets/images/img_7.jpg';
+import { Services } from '../components/Interfaces/Services/Services';
 const Home: React.FC = () => {
-    
+    const [services, setServices] = useState<Services[]>([]);
+
     const [showScrollButton, setShowScrollButton] = useState(false);
     const videoSources = [videoBG1, videoBG2, videoBG3, videoBG4];
     const scrollToTop = () => {
@@ -51,15 +54,26 @@ const Home: React.FC = () => {
       };
       const [videoUrl, setVideoUrl] = useState('');
 
-      useEffect(() => {
+    useEffect(() => {
         axios.get('http://localhost:3002/api/video')
-          .then(response => {
-            setVideoUrl(response.data);
-          })
-          .catch(error => {
-            console.error('Error fetching video URL:', error);
-          });
-      }, []);
+            .then(response => {
+                setVideoUrl(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching video URL:', error);
+            });
+        axios.get('https://localhost:3002/api/services')
+            .then((response) => {
+                const data = response.data;
+                console.log('====================================');
+                console.log(response.data);
+                console.log('====================================');
+                setServices(data);
+            })
+            .catch((error) => {
+                console.error('Error fetching warranty technics:', error);
+            });
+    }, []);
     useEffect(() => {
       const checkScroll = () => {
           if (!showScrollButton && window.scrollY > 400) {
@@ -142,38 +156,21 @@ const Home: React.FC = () => {
             </div>
             <div className='service-list-blocks'>
                 <div className='service-list-blocks-section'>
-                    <div className='service-list-block'>
-                        <div className='service-list-block-image'>
+                    {services.map(serv => (
 
-                        </div>
-                        <div className='service-list-block-text'>
-                            <p>Lorem ipsum m veritatis consequuntur corporis ipsa doloribus est aut?</p>
-                        </div>
-                    </div>
-                    <div className='service-list-block'>
-                        <div className='service-list-block-image'>
-
-                        </div>
-                        <div className='service-list-block-text'>
-                            <p>Lorem ipsum m veritatis consequuntur corporis ipsa doloribus est aut?</p>
-                        </div>
-                    </div>
-                    <div className='service-list-block'>
-                        <div className='service-list-block-image'>
-
-                        </div>
-                        <div className='service-list-block-text'>
-                            <p>Lorem ipsum m veritatis consequuntur corporis ipsa doloribus est aut?</p>
-                        </div>
-                    </div>
-                    <div className='service-list-block'>
-                        <div className='service-list-block-image'>
-
-                        </div>
-                        <div className='service-list-block-text'>
-                            <p>Lorem ipsum m veritatis consequuntur corporis ipsa doloribus est aut?</p>
-                        </div>
-                    </div>
+                        <Link to={'/service:id'} key={serv.id}>
+                            <div className='service-list-block'>
+                                <div className='service-list-block-image'>
+                                    {serv.images}
+                                </div>
+                                <div className='service-list-block-text'>
+                                    <p>{serv.title}</p>
+                                    <p>{serv.description}</p>
+                                </div>
+                            </div>
+                        </Link>
+                    ))}
+                   
                 </div>
                 {/* <div className='service-list-blocks-section'>
                     <div className='service-list-block'>
