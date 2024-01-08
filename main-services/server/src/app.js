@@ -1,5 +1,7 @@
 // app.js
 const express = require("express");
+const https = require('https');
+const fs =require('fs');
 const cors = require("cors");
 const dbFunctions = require("./controllers/dbFunctions");
 const jwt =require('jsonwebtoken');
@@ -8,7 +10,10 @@ const cookieParser=require('cookie-parser')
 const PORT = process.env.PORT || 3002;
 const app = express();
 const jwt_secret_key=';oeukgjhbsrkj.,hndk.jf,hsnfolkehapihfaws';
-
+const options = {
+  key: fs.readFileSync('/home/marktrukhin/Documents/service/For_my_Life/main-services/server/src/config/keys/key.pem'),
+  cert: fs.readFileSync('/home/marktrukhin/Documents/service/For_my_Life/main-services/server/src/config/keys/cert.pem')
+};
 app.use(express.json());
 app.use(cors(
   {
@@ -118,12 +123,34 @@ app.post("/api/register", (req, res) => {
     return res.status(201).json({ message: "User registered successfully" });
   });
 });
-app.get("/api/services", (req, res) => {
-  
+app.get('/services', (req, res) => {
+  const query = 'SELECT * FROM Services';
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error('Error fetching data: ', err);
+      res.status(500).send('Error fetching data');
+      return;
+    }
+    res.json(results);
+  });
 });
 
-app.get("/api/services?id=", (req, res) => {
-  
+// Route to get data by ID from the Services table
+app.get('/services/:id', (req, res) => {
+  const { id } = req.params;
+  const query = 'SELECT * FROM Services WHERE id = ?';
+  connection.query(query, [id], (err, results) => {
+    if (err) {
+      console.error('Error fetching data by ID: ', err);
+      res.status(500).send('Error fetching data by ID');
+      return;
+    }
+    if (results.length === 0) {
+      res.status(404).send('Data not found');
+      return;
+    }
+    res.json(results[0]);
+  });
 });
 app.get("/api/requests", (req, res) => {
   
@@ -132,7 +159,7 @@ app.get("/api/requests", (req, res) => {
 app.get("/api/request?id=", (req, res) => {
   
 });
-
+const server = https.createServer(options, app);
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });

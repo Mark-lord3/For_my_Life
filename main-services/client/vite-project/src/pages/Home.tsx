@@ -55,7 +55,7 @@ const Home: React.FC = () => {
       const [videoUrl, setVideoUrl] = useState('');
 
     useEffect(() => {
-        axios.get('http://localhost:3002/api/video')
+        axios.get('https://localhost:3002/api/video')
             .then(response => {
                 setVideoUrl(response.data);
             })
